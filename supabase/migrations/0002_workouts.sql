@@ -5,10 +5,15 @@
 -- usuario principal", pero ese uuid no se conoce al aplicar la migración. Se usa
 -- un propietario de sistema ('00000000-...') y una política SELECT extra para
 -- que TODOS los usuarios autenticados compartan el catálogo común.
+--
+-- Ammendment (deploy): exercises.user_id NO lleva clave foránea a auth.users.
+-- El seed del catálogo usa un propietario de sistema inexistente y la FK lo
+-- rechazaba (SQLSTATE 23503). La integridad la impone la RLS
+-- (with check (auth.uid() = user_id) en insert), no la FK.
 
 create table public.exercises (
   id uuid primary key default gen_random_uuid(),
-  user_id uuid not null references auth.users(id) on delete cascade,
+  user_id uuid not null,
   name text not null,
   muscle_group text not null,
   is_custom boolean not null default false,
