@@ -8,6 +8,7 @@ import '../../features/auth/application/auth_controller.dart';
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/register_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
+import '../../features/workouts/presentation/exercise_chart_screen.dart';
 import '../../features/workouts/presentation/exercise_list_screen.dart';
 import '../../features/workouts/presentation/workout_log_screen.dart';
 
@@ -42,6 +43,12 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(
         path: '/workouts/log',
         builder: (_, _) => const WorkoutLogScreen(),
+      ),
+      GoRoute(
+        path: '/workouts/chart/:exerciseId',
+        builder: (context, state) => ExerciseChartScreen(
+          exerciseId: state.pathParameters['exerciseId']!,
+        ),
       ),
     ],
   );

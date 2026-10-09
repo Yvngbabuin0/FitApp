@@ -120,9 +120,18 @@ class _ExerciseTile extends StatelessWidget {
       leading: const Icon(Icons.fitness_center),
       title: Text(exercise.name),
       subtitle: Text(exercise.muscleGroup),
-      trailing: exercise.isCustom
-          ? const Chip(label: Text('propio'))
-          : null,
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (exercise.isCustom) const Chip(label: Text('propio')),
+          IconButton(
+            key: Key('chart-${exercise.id}'),
+            icon: const Icon(Icons.show_chart),
+            tooltip: 'Ver evolución',
+            onPressed: () => context.go('/workouts/chart/${exercise.id}'),
+          ),
+        ],
+      ),
     );
   }
 }
