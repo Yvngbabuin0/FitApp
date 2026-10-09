@@ -96,7 +96,7 @@ void main() {
     final req = requests.single;
     final body = jsonDecode(req.body) as Map<String, dynamic>;
     expect(body['hint'], 'almuerzo');
-    final jpeg = base64Decode(body['image'] as String);
+    final jpeg = base64Decode(body['image_base64'] as String);
     final decoded = img.decodeImage(jpeg);
     expect(decoded, isNotNull);
     expect(decoded!.width, lessThanOrEqualTo(1024));
@@ -110,7 +110,7 @@ void main() {
 
     final req = requests.single;
     final body = jsonDecode(req.body) as Map<String, dynamic>;
-    final jpeg = base64Decode(body['image'] as String);
+    final jpeg = base64Decode(body['image_base64'] as String);
     final decoded = img.decodeImage(jpeg);
     expect(decoded, isNotNull);
     expect(decoded!.width, lessThanOrEqualTo(1024));

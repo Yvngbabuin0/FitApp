@@ -22,7 +22,7 @@ class MealAnalysisService {
     try {
       final jpeg = _compress(imageBytes);
       final body = <String, dynamic>{
-        'image': base64Encode(jpeg),
+        'image_base64': base64Encode(jpeg),
         if (hint != null && hint.trim().isNotEmpty) 'hint': hint.trim(),
       };
       final res = await _client.functions.invoke('analyze-meal', body: body);
