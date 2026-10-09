@@ -7,6 +7,10 @@ import 'package:go_router/go_router.dart';
 import '../../features/auth/application/auth_controller.dart';
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/register_screen.dart';
+import '../../features/food/domain/food_item.dart';
+import '../../features/food/presentation/daily_log_screen.dart';
+import '../../features/food/presentation/food_capture_screen.dart';
+import '../../features/food/presentation/food_review_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
 import '../../features/workouts/presentation/exercise_chart_screen.dart';
 import '../../features/workouts/presentation/exercise_list_screen.dart';
@@ -50,6 +54,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
           exerciseId: state.pathParameters['exerciseId']!,
         ),
       ),
+      GoRoute(path: '/food', builder: (_, _) => const FoodCaptureScreen()),
+      GoRoute(
+        path: '/food/review',
+        builder: (context, state) => FoodReviewScreen(
+          initialItems: (state.extra as List? ?? const []).cast<FoodItem>(),
+        ),
+      ),
+      GoRoute(path: '/food/log', builder: (_, _) => const DailyLogScreen()),
     ],
   );
 });
