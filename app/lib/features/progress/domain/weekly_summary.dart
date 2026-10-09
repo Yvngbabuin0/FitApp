@@ -119,6 +119,13 @@ WeeklySummary buildWeeklySummary({
   }
   final days = loggedDays.length;
 
+  // Adherencia: días con CUALQUIER registro (comida O entrenamiento) / 7.
+  final recordDays = <String>{...loggedDays};
+  for (final session in weekSessions) {
+    recordDays.add(_dayKey(session.startedAt));
+  }
+  final adherence = recordDays.length / 7;
+
   return WeeklySummary(
     weekStart: start,
     volume: volume,
@@ -128,7 +135,7 @@ WeeklySummary buildWeeklySummary({
     avgProteinG: days == 0 ? 0 : totalProtein / days,
     avgCarbsG: days == 0 ? 0 : totalCarbs / days,
     avgFatG: days == 0 ? 0 : totalFat / days,
-    adherence: days / 7,
+    adherence: adherence,
   );
 }
 

@@ -77,7 +77,23 @@ void main() {
       expect(summary.avgProteinG, 140);
       expect(summary.avgCarbsG, 190);
       expect(summary.avgFatG, 57.5);
-      expect(summary.adherence, closeTo(2 / 7, 1e-9));
+      // Adherencia = días con CUALQUIER registro (comida O entrenamiento) / 7.
+      // Días: lunes(comida+entreno), martes(comida), miércoles(entreno) = 3.
+      expect(summary.adherence, closeTo(3 / 7, 1e-9));
+    });
+
+    test('un día con solo entrenamiento cuenta para la adherencia', () {
+      final summary = buildWeeklySummary(
+        weekStart: currentWeekStart,
+        sessions: [
+          _session(DateTime(2026, 10, 6), [_set('ex-1', 0, 5, 100)]),
+        ],
+        foodEntries: const [],
+      );
+
+      expect(summary.adherence, closeTo(1 / 7, 1e-9));
+      // Pero las medias de comida valen 0 porque no hay registro de comida.
+      expect(summary.avgCalories, 0);
     });
 
     test('cuenta PRs nuevos de la semana (supera el máximo previo)', () {
@@ -121,7 +137,9 @@ void main() {
       expect(comparison.proteinDelta, 40);
       expect(comparison.carbsDelta, 70);
       expect(comparison.fatDelta, 17.5);
-      expect(comparison.adherenceDelta, closeTo(1 / 7, 1e-9));
+      // Semana anterior: 1 día con registro (lun 29/9: comida+entreno) = 1/7.
+      // Actual: 3 días = 3/7 → delta 2/7.
+      expect(comparison.adherenceDelta, closeTo(2 / 7, 1e-9));
     });
   });
 }
