@@ -8,6 +8,8 @@ import '../../features/auth/application/auth_controller.dart';
 import '../../features/auth/presentation/login_screen.dart';
 import '../../features/auth/presentation/register_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
+import '../../features/workouts/presentation/exercise_list_screen.dart';
+import '../../features/workouts/presentation/workout_log_screen.dart';
 
 final appRouterProvider = Provider<GoRouter>((ref) {
   final authRepository = ref.watch(authRepositoryProvider);
@@ -36,6 +38,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       GoRoute(path: '/', builder: (_, _) => const HomeScreen()),
       GoRoute(path: '/login', builder: (_, _) => const LoginScreen()),
       GoRoute(path: '/register', builder: (_, _) => const RegisterScreen()),
+      GoRoute(path: '/workouts', builder: (_, _) => const ExerciseListScreen()),
+      GoRoute(
+        path: '/workouts/log',
+        builder: (_, _) => const WorkoutLogScreen(),
+      ),
     ],
   );
 });

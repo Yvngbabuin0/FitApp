@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/workout_repository.dart';
 import '../domain/exercise.dart';
+import '../domain/workout_session.dart';
 
 /// Repositorio de entrenamientos. En producción se sobrescribe con el cliente
 /// real de Supabase; en tests, con uno simulado.
@@ -34,5 +35,9 @@ class WorkoutController extends AsyncNotifier<List<Exercise>> {
         .createExercise(name, muscleGroup);
     await refresh();
     return exercise;
+  }
+
+  Future<void> saveSession(WorkoutSession session) async {
+    await ref.read(workoutRepositoryProvider).saveSession(session);
   }
 }
