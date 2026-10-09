@@ -12,6 +12,7 @@ import '../../features/food/presentation/daily_log_screen.dart';
 import '../../features/food/presentation/food_capture_screen.dart';
 import '../../features/food/presentation/food_review_screen.dart';
 import '../../features/home/presentation/home_screen.dart';
+import '../../features/progress/presentation/weekly_summary_screen.dart';
 import '../../features/workouts/presentation/exercise_chart_screen.dart';
 import '../../features/workouts/presentation/exercise_list_screen.dart';
 import '../../features/workouts/presentation/workout_log_screen.dart';
@@ -62,6 +63,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
         ),
       ),
       GoRoute(path: '/food/log', builder: (_, _) => const DailyLogScreen()),
+      GoRoute(path: '/progress', builder: (_, _) => const WeeklySummaryScreen()),
     ],
   );
 });
