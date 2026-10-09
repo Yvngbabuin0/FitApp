@@ -29,16 +29,20 @@ class WorkoutSession {
         'sets': sets.map((s) => s.toMap()).toList(),
       };
 
-  factory WorkoutSession.fromMap(Map<String, dynamic> map) => WorkoutSession(
-        id: map['id'] as String?,
-        userId: map['user_id'] as String,
-        startedAt: DateTime.parse(map['started_at'] as String),
-        endedAt: map['ended_at'] == null
-            ? null
-            : DateTime.parse(map['ended_at'] as String),
-        notes: map['notes'] as String?,
-        sets: (map['sets'] as List<dynamic>? ?? const [])
-            .map((e) => WorkoutSet.fromMap(Map<String, dynamic>.from(e as Map)))
-            .toList(),
-      );
+  factory WorkoutSession.fromMap(Map<String, dynamic> map) {
+    final rawSets =
+        map['sets'] is List ? map['sets'] as List : map['workout_sets'];
+    return WorkoutSession(
+      id: map['id'] as String?,
+      userId: map['user_id'] as String,
+      startedAt: DateTime.parse(map['started_at'] as String),
+      endedAt: map['ended_at'] == null
+          ? null
+          : DateTime.parse(map['ended_at'] as String),
+      notes: map['notes'] as String?,
+      sets: (rawSets as List<dynamic>? ?? const [])
+          .map((e) => WorkoutSet.fromMap(Map<String, dynamic>.from(e as Map)))
+          .toList(),
+    );
+  }
 }
